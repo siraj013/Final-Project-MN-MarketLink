@@ -32,11 +32,7 @@ Customers place orders that generate transactions
 
 - Tech Overview
 
-Frontend: React (or your chosen frontend framework)
-
-Backend: Node.js / Express
-
-Database: MySQL (or any relational DB)
+Database: SQL 
 
 Entity Relationships: Defined using ERD (Market, Vendor, Product, Customer, Order, Transaction)
 
