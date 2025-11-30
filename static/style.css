@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f8f8f8;
+}
+
+h1, h2, h3 {
+    color: #2b4c2b;
+}
+
+ul li {
+    margin-bottom: 8px;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+}
+
+button {
+    background: #3a7e3a;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background: #2f662f;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #2b4c2b;
+}
