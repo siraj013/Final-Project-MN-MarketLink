@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ market.market_name }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>{{ market.market_name }}</h1>
+
+<h2>Available Products</h2>
+
+{% for p in products %}
+<div class="product-card">
+    <h3>{{ p.product_name }}</h3>
+    <p>${{ p.price }}</p>
+
+    <form method="POST" action="/order">
+        <input type="hidden" name="product_id" value="{{ p.product_id }}">
+        <input type="hidden" name="customer_id" value="1"> <!-- Demo -->
+        <input type="number" name="quantity" value="1" min="1">
+        <button type="submit">Pre-Order</button>
+    </form>
+</div>
+{% endfor %}
+
+<a href="/markets">← Back to Markets</a>
+
+</body>
+</html>
