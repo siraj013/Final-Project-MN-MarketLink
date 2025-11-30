@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Products</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>Search Products</h1>
+
+<form method="GET">
+    <input name="q" value="{{ q }}" placeholder="Search...">
+    <button>Search</button>
+</form>
+
+{% for r in results %}
+<div class="product-card">
+    <h3>{{ r.product_name }}</h3>
+    <p>
+        Vendor: {{ r.vendor_name }} <br>
+        Market: {{ r.market_name }}
+    </p>
+</div>
+{% endfor %}
+
+<a href="/markets">← Back to Markets</a>
+
+</body>
+</html>
