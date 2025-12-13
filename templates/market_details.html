@@ -5,26 +5,36 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+<header>
+    <h1>MN MarketLink</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/markets">Markets</a>
+        <a href="/search">Search Products</a>
+    </nav>
+</header>
 
-<h1>{{ market.market_name }}</h1>
+<h2>{{ market.market_name }}</h2>
+<p><strong>Location:</strong> {{ market.location }}</p>
+<p><strong>Operating Days:</strong> {{ market.date }}</p>
 
-<h2>Available Products</h2>
+<h3>Available Products</h3>
 
 {% for p in products %}
 <div class="product-card">
     <h3>{{ p.product_name }}</h3>
-    <p>${{ p.price }}</p>
+    <p>Price: ${{ p.price }}</p>
+    <p>Vendor: {{ p.vendor_name }}</p>
 
     <form method="POST" action="/order">
         <input type="hidden" name="product_id" value="{{ p.product_id }}">
         <input type="hidden" name="customer_id" value="1"> <!-- Demo -->
-        <input type="number" name="quantity" value="1" min="1">
+        <label>Quantity: <input type="number" name="quantity" value="1" min="1"></label>
         <button type="submit">Pre-Order</button>
     </form>
 </div>
 {% endfor %}
 
-<a href="/markets">← Back to Markets</a>
-
 </body>
 </html>
+
