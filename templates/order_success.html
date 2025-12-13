@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Order Successful</title>
+    <title>Search Products</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -14,11 +14,26 @@
     </nav>
 </header>
 
-<h2>Order Successful!</h2>
-<p>Your order has been placed. Thank you for supporting local farmers!</p>
+<h2>Search Products</h2>
 
-<a href="/markets">Return to Markets</a>
+<form method="GET">
+    <input name="q" value="{{ q }}" placeholder="Search for products...">
+    <button>Search</button>
+</form>
+
+{% if results %}
+<h3>Results:</h3>
+{% for r in results %}
+<div class="product-card">
+    <h3>{{ r.product_name }}</h3>
+    <p>Price: ${{ r.price }}</p>
+    <p>Vendor: {{ r.vendor_name }}</p>
+    <p>Market: {{ r.market_name }}</p>
+</div>
+{% endfor %}
+{% else %}
+<p>No products found.</p>
+{% endif %}
 
 </body>
 </html>
-
