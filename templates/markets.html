@@ -5,19 +5,26 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-<h1>Farmers Markets</h1>
+<header>
+    <h1>MN MarketLink</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/markets">Markets</a>
+        <a href="/search">Search Products</a>
+    </nav>
+</header>
+
+<h2>Farmers Markets</h2>
 
 <ul>
     {% for m in markets %}
         <li>
             <a href="/markets/{{ m.market_id }}">
-                {{ m.market_name }}
+                {{ m.market_name }} - {{ m.location }}
             </a>
         </li>
     {% endfor %}
 </ul>
-
-<a href="/search">Search for Products</a>
 
 </body>
 </html>
