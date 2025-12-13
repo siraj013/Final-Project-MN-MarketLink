@@ -93,3 +93,5 @@ CREATE TABLE Transactions (
     OrderID         INT NOT NULL,
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 );
+
+);
