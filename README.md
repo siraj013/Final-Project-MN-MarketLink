@@ -1,7 +1,7 @@
 # Final-Project-MN-MarketLink
 SE 3050 (E90) - The Minnesota Farmers Market Hub
 
-Members - Siraj 
+Members - Siraj https://drive.google.com/file/d/1_ET1rFSo6OfxkW4PCSjSi9mzpBdaZDvX/view?usp=sharing
 
 <img width="1315" height="314" alt="ERD MN Marketlink" src="https://github.com/user-attachments/assets/bbfe1146-2c21-4c50-87c2-6d9336fbff72" />
 
