@@ -1,17 +1,12 @@
 from flask import Flask, render_template, request, redirect
-import mysql.connector
+import sqlite3
 
 app = Flask(__name__)
 
 # Database connection
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="yourpassword",  # <-- Replace with your MySQL password
-    database="mn_marketlink"
-)
-
-cursor = db.cursor(dictionary=True)
+db = sqlite3.connect('mn_marketlink.db', check_same_thread=False)
+db.row_factory = sqlite3.Row
+cursor = db.cursor()
 
 
 # ------------------------------
@@ -20,7 +15,7 @@ cursor = db.cursor(dictionary=True)
 
 @app.route("/")
 def home():
-    return redirect("/markets")
+    return render_template("home.html")
 
 
 # Browse all markets
@@ -34,14 +29,14 @@ def markets():
 # Market details (with vendors + products)
 @app.route("/markets/<int:market_id>")
 def market_details(market_id):
-    cursor.execute("SELECT * FROM Market WHERE market_id=%s", (market_id,))
+    cursor.execute("SELECT * FROM Market WHERE market_id=?", (market_id,))
     market = cursor.fetchone()
 
     cursor.execute("""
         SELECT Vendor.vendor_name, Product.*
         FROM Vendor
         JOIN Product ON Vendor.vendor_id = Product.vendor_id
-        WHERE Vendor.market_id = %s
+        WHERE Vendor.market_id = ?
     """, (market_id,))
     products = cursor.fetchall()
 
@@ -58,7 +53,7 @@ def search():
         FROM Product
         JOIN Vendor ON Product.vendor_id = Vendor.vendor_id
         JOIN Market ON Vendor.market_id = Market.market_id
-        WHERE Product.product_name LIKE %s
+        WHERE Product.product_name LIKE ?
     """, ("%" + q + "%",))
 
     results = cursor.fetchall()
@@ -73,17 +68,15 @@ def place_order():
     quantity = int(request.form["quantity"])
 
     try:
-        db.start_transaction()
-
         cursor.execute("""
             INSERT INTO Orders (customer_id, order_date)
-            VALUES (%s, NOW())
+            VALUES (?, CURRENT_TIMESTAMP)
         """, (customer_id,))
         order_id = cursor.lastrowid
 
         cursor.execute("""
             INSERT INTO OrderItem (order_id, product_id, quantity)
-            VALUES (%s, %s, %s)
+            VALUES (?, ?, ?)
         """, (order_id, product_id, quantity))
 
         db.commit()
@@ -98,6 +91,12 @@ def place_order():
 @app.route("/order-success")
 def order_success():
     return render_template("order_success.html")
+
+
+# Run the server
+if __name__ == "__main__":
+    app.run(debug=True)
+
 
 
 # Run the server
